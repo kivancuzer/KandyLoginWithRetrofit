@@ -1,15 +1,32 @@
 package com.example.kandyloginwithretrofit;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Token {
-   private String access_token;
-   private Integer expires_in;
-   private Integer refresh_expires_in;
-   private String refresh_token;
-   private String token_type;
-   private String id_token;
-   private Integer not_before_policy;
-   private String session_state;
-   private String scope;
+   public String access_token;
+   public Integer expires_in;
+   public Integer refresh_expires_in;
+   public String refresh_token;
+   public String token_type;
+   public String id_token;
+
+   @SerializedName("not-before-policy")
+   public Integer not_before_policy;
+
+   public String session_state;
+   public String scope;
+
+   public Token(String access_token, Integer expires_in, Integer refresh_expires_in, String refresh_token, String token_type, String id_token, Integer not_before_policy, String session_state, String scope) {
+      this.access_token = access_token;
+      this.expires_in = expires_in;
+      this.refresh_expires_in = refresh_expires_in;
+      this.refresh_token = refresh_token;
+      this.token_type = token_type;
+      this.id_token = id_token;
+      this.not_before_policy = not_before_policy;
+      this.session_state = session_state;
+      this.scope = scope;
+   }
 
    public String getAccess_token() {
       return access_token;
