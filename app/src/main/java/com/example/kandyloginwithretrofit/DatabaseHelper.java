@@ -113,7 +113,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * + KEY_TOKEN_ACCESS_TOKEN = " VARCHAR,"
      * Upgrade Database version.
      *
      * @param sqLiteDatabase SQLiteDatabase which is used.
@@ -128,6 +127,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             onCreate(sqLiteDatabase);
         }
     }
+
+    /**
+     * Add token into the database
+     * @param token which will be added into the database.
+     */
 
     public void addToken(Token token) {
         try {
