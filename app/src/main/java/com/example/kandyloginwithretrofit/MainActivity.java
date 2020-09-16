@@ -31,13 +31,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     private TextView textViewResult;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
-    public DatabaseHelper databaseHelper;
+    public KandyRoomDatabase kandyRoomDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        kandyRoomDatabase = KandyRoomDatabase.getInstance(this);
 
         Gson gson = new GsonBuilder().serializeNulls().create();
 
@@ -79,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 Token token = response.body();
-                databaseHelper.addToken(token);
-                Log.i("Database Operations: ", databaseHelper.getStatus());
+                kandyRoomDatabase.kandyDao().addToken(token);
                 String accessToken = token.getAccess_token();
                 String idToken = token.getId_token();
                 connectToCpaas(accessToken, idToken);
