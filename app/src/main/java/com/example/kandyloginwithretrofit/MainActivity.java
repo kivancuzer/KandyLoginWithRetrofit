@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnLoginWithLastToken = findViewById(R.id.btnLoginWithLastToken);
 
-        getToken();
+        //getToken();
+
     }
 
     /**
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         User user = new User(username, password, "password", clientId, "openid");
-        Call<Token> call = jsonPlaceHolderApi.getToken(user);
+        Call<Token> call = jsonPlaceHolderApi.getToken(user.getUsername(),user.getPassword(),user.getClient_id(),"openid","password");
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {

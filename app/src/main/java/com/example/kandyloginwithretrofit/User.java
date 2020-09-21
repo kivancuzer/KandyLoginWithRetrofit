@@ -7,7 +7,10 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "table_user")
 public class User {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private int id;
+
     @NonNull
     @ColumnInfo(name = "username")
     private String username;
@@ -33,7 +36,7 @@ public class User {
      * <p>
      * When User created with this constructor id will be generated automatically.
      *
-     * @param username  is which will be set for User.
+     * @param username   is which will be set for User.
      * @param password   is which will be set for User.
      * @param grant_type is which will be set for User.
      * @param client_id  is which will be set for User.
@@ -48,6 +51,11 @@ public class User {
     }
 
     //GETTERS
+
+    @NonNull
+    public int getId() {
+        return id;
+    }
 
     @NonNull
     public String getUsername() {
@@ -75,6 +83,10 @@ public class User {
     }
 
     //SETTERS
+
+    public void setId(@NonNull int id) {
+        this.id = id;
+    }
 
     public void setUsername(@NonNull String username) {
         this.username = username;
