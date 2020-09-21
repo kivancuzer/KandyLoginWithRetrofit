@@ -6,53 +6,39 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
+
 @Entity(tableName = "table_token")
 public class Token {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    @PrimaryKey
     @NonNull
-    @ColumnInfo(name="access_token")
+    @ColumnInfo(name = "access_token")
     private String access_token;
     @NonNull
-    @ColumnInfo(name="expires_in")
+    @ColumnInfo(name = "expires_in")
     private Integer expires_in;
     @NonNull
-    @ColumnInfo(name="refresh_expires_in")
+    @ColumnInfo(name = "refresh_expires_in")
     private Integer refresh_expires_in;
     @NonNull
-    @ColumnInfo(name="refresh_token")
+    @ColumnInfo(name = "refresh_token")
     private String refresh_token;
     @NonNull
-    @ColumnInfo(name="token_type")
+    @ColumnInfo(name = "token_type")
     private String token_type;
-    @PrimaryKey
     @NonNull
-    @ColumnInfo(name="id_token")
+    @ColumnInfo(name = "id_token")
     private String id_token;
     @NonNull
     @SerializedName("not-before-policy")
-    @ColumnInfo(name="not_before_policy")
+    @ColumnInfo(name = "not_before_policy")
     private Integer not_before_policy;
     @NonNull
-    @ColumnInfo(name="session_state")
+    @ColumnInfo(name = "session_state")
     private String session_state;
     @NonNull
-    @ColumnInfo(name="scope")
+    @ColumnInfo(name = "scope")
     private String scope;
-
-    public Token(int id, @NonNull String access_token, @NonNull Integer expires_in, @NonNull Integer refresh_expires_in, @NonNull String refresh_token, @NonNull String token_type, @NonNull String id_token, @NonNull Integer not_before_policy, @NonNull String session_state, @NonNull String scope) {
-        this.id = id;
-        this.access_token = access_token;
-        this.expires_in = expires_in;
-        this.refresh_expires_in = refresh_expires_in;
-        this.refresh_token = refresh_token;
-        this.token_type = token_type;
-        this.id_token = id_token;
-        this.not_before_policy = not_before_policy;
-        this.session_state = session_state;
-        this.scope = scope;
-    }
 
     public Token(@NonNull String access_token, @NonNull Integer expires_in, @NonNull Integer refresh_expires_in, @NonNull String refresh_token, @NonNull String token_type, @NonNull String id_token, @NonNull Integer not_before_policy, @NonNull String session_state, @NonNull String scope) {
         this.access_token = access_token;

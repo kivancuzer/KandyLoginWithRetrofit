@@ -7,11 +7,6 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "table_user")
 public class User {
-
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    private int id;
-
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "username")
@@ -34,36 +29,15 @@ public class User {
     private String scope;
 
     /**
-     * Create User with id
-     *
-     * When User created with this constructor id won't be generated automatically.
-     *
-     * @param id is which will be set for User in db.
-     * @param username is which will be set for User.
-     * @param password is which will be set for User.
-     * @param grant_type is which will be set for User.
-     * @param client_id is which will be set for User.
-     * @param scope is which will be set for User.
-     */
-    public User(int id, @NonNull String username, @NonNull String password, @NonNull String grant_type, @NonNull String client_id, @NonNull String scope) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.grant_type = grant_type;
-        this.client_id = client_id;
-        this.scope = scope;
-    }
-
-    /**
      * Create User Without id
-     *
+     * <p>
      * When User created with this constructor id will be generated automatically.
      *
-     * @param username is which will be set for User.
-     * @param password is which will be set for User.
+     * @param username  is which will be set for User.
+     * @param password   is which will be set for User.
      * @param grant_type is which will be set for User.
-     * @param client_id is which will be set for User.
-     * @param scope is which will be set for User.
+     * @param client_id  is which will be set for User.
+     * @param scope      is which will be set for User.
      */
     public User(String username, String password, String grant_type, String client_id, String scope) {
         this.username = username;
@@ -73,9 +47,7 @@ public class User {
         this.scope = scope;
     }
 
-    public int getId() {
-        return id;
-    }
+    //GETTERS
 
     @NonNull
     public String getUsername() {
@@ -102,9 +74,7 @@ public class User {
         return scope;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    //SETTERS
 
     public void setUsername(@NonNull String username) {
         this.username = username;

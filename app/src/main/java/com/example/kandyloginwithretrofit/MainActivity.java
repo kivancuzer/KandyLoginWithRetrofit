@@ -2,10 +2,10 @@ package com.example.kandyloginwithretrofit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -29,7 +29,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView textViewResult;
+    private Button btnLoginWithLastToken;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
     public KandyRoomDatabase kandyRoomDatabase;
 
@@ -56,48 +56,78 @@ public class MainActivity extends AppCompatActivity {
          * Retrofit
          */
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://oauth-cpaas.att.com/cpaas/")
+                .baseUrl("https://nvs-cpaas-oauth.kandy.io/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
-        //getToken();
+        btnLoginWithLastToken = findViewById(R.id.btnLoginWithLastToken);
+
+        getToken();
     }
 
-    private void getToken() {
-        String username = "";
-        String password = "";
-        String clientId = "";
+    /**
+     * Get Token Method
+     */
+    public void getToken() {
+
+        //Account Information
+        String username = "sahin1@cpaas.com";
+        String password = "Kandy-1234";
+        String accessToken = "tokenUser3";
+        int lifeTime = 600;
+        boolean secureConnection = true;
+        String clientId = "7ae2e26f-178a-4cac-9dcf-4cecd1bbadc6";
+        String client_secret = "";
+        String scope = "openid";
+
+
         User user = new User(username, password, "password", clientId, "openid");
         Call<Token> call = jsonPlaceHolderApi.getToken(user);
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.code() != 200 || response.body() == null) {
-                    textViewResult.setText("Response: " + response.code());
+                    System.out.println("Response: " + response.code());
                     return;
                 }
                 Token token = response.body();
-                kandyRoomDatabase.kandyDao().addToken(token);
+                kandyRoomDatabase.userDao().addToken(token);
                 String accessToken = token.getAccess_token();
                 String idToken = token.getId_token();
-                connectToCpaas(accessToken, idToken);
+
+                //Connect to Cpass Method
+                //connectToCpaas(accessToken,idToken);
+
+                //Print Token To Control Token
+                System.out.println("ID: " + token.getId());
+                System.out.println("Access Token: " + token.getAccess_token());
+                System.out.println("Expires In: " + token.getExpires_in());
+                System.out.println("Refresh Token: " + token.getRefresh_token());
+                System.out.println("Token Type: " + token.getToken_type());
+                System.out.println("Id Token: " + token.getId_token());
+                System.out.println("Not Before Policy: " + token.getNot_before_policy());
+                System.out.println("Session State: " + token.getSession_state());
+                System.out.println("Scope: " + token.getScope());
+
+
             }
 
             @Override
             public void onFailure(Call<Token> call, Throwable t) {
-                textViewResult.setText(t.getMessage());
+                System.out.println(t.getMessage());
             }
         });
 
 
     }
 
+
     private void connectToCpaas(String accessToken, String idToken) {
 
-        int lifetime = 3600;
+        int lifetime = 600;
         List<ServiceInfo> services = new ArrayList<>();
 
         services.add(new ServiceInfo(ServiceType.SMS, true));
@@ -122,4 +152,33 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * Login With Last Token
+     * <p>
+     * When btnLoginWithLastToken clicked
+     *
+     * @param view
+     */
+    public void loginWithLastToken(View view) {
+        //Get last token in db
+        Token token = kandyRoomDatabase.userDao().getLastToken();
+        System.out.println(token.getAccess_token());
+        System.out.println(token.getId_token());
+
+        //Control token
+        if (token == null) {
+            System.out.println("Last token couldn't find");
+        } else {
+            //Connect To Cpass
+
+//            connectToCpaas(kandyRoomDatabase.userDao().getLastToken().getAccess_token(),
+//                    kandyRoomDatabase.userDao().getLastToken().getId_token());
+
+
+        }
+
+    }
+
 }
+

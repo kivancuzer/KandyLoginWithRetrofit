@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 @Database(entities = {Token.class, User.class}, version = 1, exportSchema = false)
 public abstract class KandyRoomDatabase extends RoomDatabase {
 
-    public abstract KandyDao kandyDao();
+    public abstract UserDao userDao();
 
     public static KandyRoomDatabase instance;
 

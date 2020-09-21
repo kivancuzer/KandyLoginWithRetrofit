@@ -10,11 +10,11 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface KandyDao {
+public interface UserDao {
 
     /**
      * Adding User
-     *
+     * <p>
      * OnConflictStrategy will be ignore conflict.
      * Same User won't be added into the database.
      *
@@ -42,7 +42,7 @@ public interface KandyDao {
      *
      * @return List of all users
      */
-    @Query("SELECT * FROM table_user ORDER BY id ASC")
+    @Query("SELECT * FROM table_user")
     List<User> getUsers();
 
     /**
@@ -55,7 +55,7 @@ public interface KandyDao {
 
     /**
      * Add token
-     *
+     * <p>
      * OnConflictStrategy will be ignore conflict.
      * Same Token won't be added into the database.
      *
@@ -81,11 +81,17 @@ public interface KandyDao {
     void updateToken(Token token);
 
     /**
-     * Get All Tokens
+     * Get Last Token
      *
-     * @return List of tokens.
+     * @return Last token in the db.
      */
-    @Query("SELECT * FROM table_token")
-    List<Token> getTokens();
+    @Query("SELECT * FROM table_token ORDER BY id DESC LIMIT 1;")
+    Token getLastToken();
+
+    /**
+     * Delete All Tokens in DB
+     */
+    @Query("DELETE FROM table_token")
+    void deleteAllTokens();
 
 }
