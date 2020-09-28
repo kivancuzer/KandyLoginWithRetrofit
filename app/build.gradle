@@ -45,3 +45,10 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.2.5"
 
 }
+
+android{
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}

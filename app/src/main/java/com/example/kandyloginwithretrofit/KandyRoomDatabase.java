@@ -21,14 +21,10 @@ public abstract class KandyRoomDatabase extends RoomDatabase {
      */
     static KandyRoomDatabase getInstance(Context context) {
         if (instance == null) {
-            synchronized (KandyRoomDatabase.class) {
-                if (instance == null) {
-                    instance = Room.databaseBuilder(context.getApplicationContext(),
-                            KandyRoomDatabase.class, "kandyDb")
-                            .allowMainThreadQueries()
-                            .build();
-                }
-            }
+            instance = Room.databaseBuilder(context.getApplicationContext(),
+                    KandyRoomDatabase.class, "kandyDb")
+                    .allowMainThreadQueries()
+                    .build();
         }
         return instance;
     }
