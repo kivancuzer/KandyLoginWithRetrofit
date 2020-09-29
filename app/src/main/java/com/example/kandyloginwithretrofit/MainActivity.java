@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://nvs-cpaas-oauth.kandy.io/")
+                .baseUrl("https://nvs-cpaas-oauth.kandy.io/cpaas/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
