@@ -46,8 +46,7 @@ public class ContactsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_contacts, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_contacts, container, false);
     }
 
     @Override
@@ -65,7 +64,6 @@ public class ContactsFragment extends Fragment {
             cpaas.getAddressBookService().retrieveContactList("default", new RetrieveContactsCallback() {
                 @Override
                 public void onSuccess(List<Contact> contacts) {
-                    System.out.println(contacts.toString());
                     contactList = new ArrayList<>(contacts);
                     recyclerView.setAdapter(new ContactRecyclerAdapter(contactList));
                 }

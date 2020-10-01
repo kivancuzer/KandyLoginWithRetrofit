@@ -19,6 +19,7 @@ public class CPaaSManager {
             services.add(new ServiceInfo(ServiceType.SMS, true));
             services.add(new ServiceInfo(ServiceType.CALL, true));
             services.add(new ServiceInfo(ServiceType.ADDRESSBOOK, true));
+            services.add(new ServiceInfo(ServiceType.CHAT, true));
             cpaas = new CPaaS(services);
         }
         return cpaas;
