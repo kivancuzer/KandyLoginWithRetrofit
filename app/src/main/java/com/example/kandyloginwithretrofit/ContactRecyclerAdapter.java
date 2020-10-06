@@ -1,11 +1,15 @@
 package com.example.kandyloginwithretrofit;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.kandyloginwithretrofit.ui.main.ContactsFragment;
 import com.rbbn.cpaas.mobile.addressbook.model.Contact;
 import java.util.List;
 
@@ -37,10 +41,11 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
 
     public class ContactHolder extends RecyclerView.ViewHolder{
         TextView txtName;
-
+        ImageView imgInfo;
         public ContactHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txtName);
+            imgInfo = itemView.findViewById(R.id.imgInfo);
         }
     }
 }

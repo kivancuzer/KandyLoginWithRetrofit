@@ -83,15 +83,6 @@ public class LoginActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextPassword = findViewById(R.id.editTextUsername);
 
-        try {
-            //Get Last Token
-            Token token = kandyRoomDatabase.userDao().getLastToken();
-            printToken(token);
-            //Connect to Cpass
-            connectToCpaas(token.getAccess_token(), token.getId_token());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**

@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.kandyloginwithretrofit.CPaaSManager;
 import com.example.kandyloginwithretrofit.MessageRecyclerAdapter;
@@ -58,7 +57,6 @@ public class MessagesFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        btnDisconnect = view.findViewById(R.id.btnDisconnect);
         recyclerViewMessages = view.findViewById(R.id.recyclerViewMessages);
         recyclerViewMessages.setLayoutManager(new LinearLayoutManager(view.getContext()));
         super.onViewCreated(view, savedInstanceState);

@@ -1,5 +1,6 @@
 package com.example.kandyloginwithretrofit.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,9 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.kandyloginwithretrofit.AddContactActivity;
 import com.example.kandyloginwithretrofit.CPaaSManager;
 import com.example.kandyloginwithretrofit.ContactRecyclerAdapter;
+import com.example.kandyloginwithretrofit.MainActivity;
 import com.example.kandyloginwithretrofit.R;
 import com.rbbn.cpaas.mobile.CPaaS;
 import com.rbbn.cpaas.mobile.addressbook.api.RetrieveContactsCallback;
@@ -30,6 +35,8 @@ public class ContactsFragment extends Fragment {
     RecyclerView recyclerView;
     List<Contact> contactList;
     CPaaS cpaas;
+    TextView txtAddNewContact;
+    ImageView imgInfo;
 
     public static ContactsFragment newInstance() {
         return new ContactsFragment();
@@ -53,6 +60,14 @@ public class ContactsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.recyclerViewContacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        txtAddNewContact = view.findViewById(R.id.txtAddNewContact);
+        txtAddNewContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), AddContactActivity.class);
+                startActivity(intent);
+            }
+        });
         super.onViewCreated(view, savedInstanceState);
     }
 

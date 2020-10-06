@@ -1,14 +1,19 @@
 package com.example.kandyloginwithretrofit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.kandyloginwithretrofit.ui.main.SectionsPagerAdapter;
@@ -25,6 +30,25 @@ public class MainActivity extends AppCompatActivity {
 
     public static CPaaS cpaas;
     public static List<Contact> contactList;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.options_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.settings){
+
+        }else if(item.getItemId() == R.id.logout){
+            disconnectToCpass();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +87,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess() {
                     Log.i("CPass.Disconnection", "Disconnected to websocket successfully");
-                    //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    //startActivity(intent);
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
 
                 @Override
