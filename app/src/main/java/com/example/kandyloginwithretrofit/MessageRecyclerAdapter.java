@@ -32,7 +32,8 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<MessageRecycler
 
     @Override
     public void onBindViewHolder(@NonNull MessageRecyclerAdapter.MessageHolder holder, int position) {
-        holder.txtMessageName.setText(conversationList.get(position).getParticipant());
+        String name[] = conversationList.get(position).getParticipant().split("@");
+        holder.txtMessageName.setText(name[0]);
         holder.txtLastMessage.setText(conversationList.get(position).getLastText());
         long time = conversationList.get(position).getLastMessageTime();
         holder.txtLastMessageTime.setText(DateFormat.format("MM/dd/yyyy", new Date(time)).toString());

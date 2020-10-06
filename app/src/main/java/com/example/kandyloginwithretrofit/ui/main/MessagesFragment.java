@@ -66,7 +66,6 @@ public class MessagesFragment extends Fragment {
         chatService.fetchConversations(new FetchConversationsCallback() {
             @Override
             public void onSuccess(List<Conversation> conversations) {
-                System.out.println("Conversations: " + conversations.toString());
                 conversationList = new ArrayList<>(conversations);
                 System.out.println("Conversation List : " + conversationList.toString());
                 System.out.println("Conversation List Last Text: " + conversations.get(0).getLastText());
