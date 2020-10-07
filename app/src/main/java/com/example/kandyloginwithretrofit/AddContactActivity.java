@@ -30,7 +30,7 @@ public class AddContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
 
-        cpaas = CPaaSManager.getCpaas(this);
+        cpaas = CPaaSManager.getCpaas();
         txtPrimaryContact = findViewById(R.id.txtPrimaryContact);
         txtFirstName = findViewById(R.id.txtFirstName);
         txtLastName = findViewById(R.id.txtLastName);

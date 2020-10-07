@@ -11,15 +11,14 @@ import java.util.List;
 
 public class CPaaSManager {
 
-    public static CPaaS cpaas;
+    private static CPaaS cpaas;
 
     /**
      * Singleton - Lazy Initialization
      *
-     * @param context The context for CPaaS
      * @return instance of the CPaaS
      */
-    static CPaaS getCpaas(Context context) {
+    public static CPaaS getCpaas() {
         if (cpaas == null) {
             List<ServiceInfo> services = new ArrayList<>();
             services.add(new ServiceInfo(ServiceType.SMS, true));

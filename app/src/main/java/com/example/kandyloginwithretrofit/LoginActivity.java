@@ -42,9 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Context context = getApplicationContext();
-        Globals.setApplicationContext(context);
-
         //Configurations
         Configuration configuration = Configuration.getInstance();
         configuration.setUseSecureConnection(true);
@@ -57,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         configuration.setICEServers(iceServers);
 
         //CPaaS
-        cpaas = CPaaSManager.getCpaas(this);
+        cpaas = CPaaSManager.getCpaas();
 
         kandyRoomDatabase = KandyRoomDatabase.getInstance(this);
 

@@ -11,7 +11,7 @@ public abstract class KandyRoomDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
 
-    public static KandyRoomDatabase instance;
+    private static KandyRoomDatabase instance;
 
     /**
      * Thread Safe Double Check Singleton Initialization

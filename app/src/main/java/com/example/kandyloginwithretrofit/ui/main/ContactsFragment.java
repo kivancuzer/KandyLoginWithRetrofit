@@ -31,7 +31,6 @@ import java.util.List;
 
 public class ContactsFragment extends Fragment {
 
-    PageViewModel pageViewModel;
     RecyclerView recyclerView;
     List<Contact> contactList;
     CPaaS cpaas;
@@ -45,8 +44,7 @@ public class ContactsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = new ViewModelProvider(this).get(PageViewModel.class);
-        cpaas = CPaaSManager.cpaas;
+        cpaas = CPaaSManager.getCpaas();
         getAddressBookService();
     }
 

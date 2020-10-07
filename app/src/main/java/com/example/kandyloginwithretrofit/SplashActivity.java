@@ -19,8 +19,6 @@ import com.rbbn.cpaas.mobile.utilities.webrtc.ICEServers;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SplashActivity extends AppCompatActivity {
     private KandyRoomDatabase kandyRoomDatabase;
@@ -29,9 +27,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Context context = getApplicationContext();
-        Globals.setApplicationContext(context);
 
         //Configurations
         Configuration configuration = Configuration.getInstance();
@@ -45,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
         configuration.setICEServers(iceServers);
 
         //CPaaS
-        cpaas = CPaaSManager.getCpaas(this);
+        cpaas = CPaaSManager.getCpaas();
 
         kandyRoomDatabase = KandyRoomDatabase.getInstance(this);
 

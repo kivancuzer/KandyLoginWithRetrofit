@@ -5,14 +5,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.kandyloginwithretrofit.CPaaSManager;
 import com.example.kandyloginwithretrofit.MessageRecyclerAdapter;
@@ -28,8 +26,6 @@ import java.util.List;
 
 public class MessagesFragment extends Fragment {
 
-    PageViewModel pageViewModel;
-    Button btnDisconnect;
     CPaaS cpaas;
     ChatService chatService;
     RecyclerView recyclerViewMessages;
@@ -42,8 +38,7 @@ public class MessagesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = new ViewModelProvider(this).get(PageViewModel.class);
-        cpaas = CPaaSManager.cpaas;
+        cpaas = CPaaSManager.getCpaas();
         chatService = cpaas.getChatService();
         getConversations();
     }
