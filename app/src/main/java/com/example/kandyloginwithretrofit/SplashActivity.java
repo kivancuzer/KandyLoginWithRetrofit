@@ -23,9 +23,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SplashActivity extends AppCompatActivity {
-    private JsonPlaceHolderApi jsonPlaceHolderApi;
-    public KandyRoomDatabase kandyRoomDatabase;
-    public CPaaS cpaas;
+    private KandyRoomDatabase kandyRoomDatabase;
+    private CPaaS cpaas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +58,7 @@ public class SplashActivity extends AppCompatActivity {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .build();
-
-        //Retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://nvs-cpaas-oauth.kandy.io/cpaas/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(okHttpClient)
-                .build();
-
-        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-
-
+        //Auto Login
         try {
             //Get Last Token
             Token token = kandyRoomDatabase.userDao().getLastToken();
@@ -107,6 +96,13 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Print Token
+     * <p>
+     * When checking the token
+     *
+     * @param token which will be printed.
+     */
     public void printToken(Token token) {
         System.out.println("ID: " + token.getId());
         System.out.println("Access Token: " + token.getAccess_token());

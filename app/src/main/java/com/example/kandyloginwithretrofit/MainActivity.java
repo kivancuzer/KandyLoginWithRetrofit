@@ -14,36 +14,30 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.kandyloginwithretrofit.ui.main.SectionsPagerAdapter;
 import com.rbbn.cpaas.mobile.CPaaS;
-import com.rbbn.cpaas.mobile.addressbook.model.Contact;
 import com.rbbn.cpaas.mobile.authentication.api.DisconnectionCallback;
 import com.rbbn.cpaas.mobile.utilities.Globals;
 import com.rbbn.cpaas.mobile.utilities.exception.MobileError;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
 
-    public static CPaaS cpaas;
-    public static List<Contact> contactList;
+    private CPaaS cpaas;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.options_menu,menu);
+        menuInflater.inflate(R.menu.options_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId() == R.id.settings){
+        if (item.getItemId() == R.id.settings) {
 
-        }else if(item.getItemId() == R.id.logout){
+        } else if (item.getItemId() == R.id.logout) {
             disconnectToCpass();
         }
 
@@ -55,10 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //CPaaS Manager
         cpaas = CPaaSManager.getCpaas(this);
-        contactList = new ArrayList<>();
-        //getAddressBookService();
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
 
@@ -72,10 +63,6 @@ public class MainActivity extends AppCompatActivity {
         Globals.setApplicationContext(context);
 
 
-    }
-
-    public void disconnect(View view) {
-        disconnectToCpass();
     }
 
     /**

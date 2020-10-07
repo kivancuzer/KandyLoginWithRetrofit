@@ -13,6 +13,12 @@ public class CPaaSManager {
 
     public static CPaaS cpaas;
 
+    /**
+     * Singleton - Lazy Initialization
+     *
+     * @param context The context for CPaaS
+     * @return instance of the CPaaS
+     */
     static CPaaS getCpaas(Context context) {
         if (cpaas == null) {
             List<ServiceInfo> services = new ArrayList<>();

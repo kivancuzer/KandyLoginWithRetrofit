@@ -32,6 +32,7 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<MessageRecycler
 
     @Override
     public void onBindViewHolder(@NonNull MessageRecyclerAdapter.MessageHolder holder, int position) {
+        //Modifying Participant name
         String name[] = conversationList.get(position).getParticipant().split("@");
         holder.txtMessageName.setText(name[0]);
         holder.txtLastMessage.setText(conversationList.get(position).getLastText());

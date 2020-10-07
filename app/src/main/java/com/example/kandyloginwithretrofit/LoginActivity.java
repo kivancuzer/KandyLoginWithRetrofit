@@ -31,8 +31,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
-    private EditText editTextUsername;
-    private EditText editTextPassword;
+    private EditText txtUsername;
+    private EditText txtPassword;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
     public KandyRoomDatabase kandyRoomDatabase;
     public CPaaS cpaas;
@@ -80,8 +80,8 @@ public class LoginActivity extends AppCompatActivity {
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
         btnLogin = findViewById(R.id.btnLogin);
-        editTextUsername = findViewById(R.id.editTextUsername);
-        editTextPassword = findViewById(R.id.editTextUsername);
+        txtUsername = findViewById(R.id.editTextUsername);
+        txtPassword = findViewById(R.id.editTextUsername);
 
     }
 
@@ -89,9 +89,14 @@ public class LoginActivity extends AppCompatActivity {
      * Get Token Method
      */
     public void getToken() {
-        //Account Information
-        String username = "sahin1@cpaas.com";
-        String password = "Kandy-1234";
+
+        String username = txtUsername.getText().toString();
+        String password = txtPassword.getText().toString();
+
+        //Account Information =>
+        username = "sahin1@cpaas.com";
+        password = "Kandy-1234";
+
         String clientId = "7ae2e26f-178a-4cac-9dcf-4cecd1bbadc6";
 
         User user = new User(username, password, "password", clientId, "openid");
@@ -149,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Disconnect
+     * Disconnect to websocket
      */
     private void disconnectToCpass() {
         try {
