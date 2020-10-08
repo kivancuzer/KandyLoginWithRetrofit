@@ -1,6 +1,5 @@
 package com.example.kandyloginwithretrofit;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +11,6 @@ import com.google.gson.GsonBuilder;
 import com.rbbn.cpaas.mobile.CPaaS;
 import com.rbbn.cpaas.mobile.authentication.api.ConnectionCallback;
 import com.rbbn.cpaas.mobile.utilities.Configuration;
-import com.rbbn.cpaas.mobile.utilities.Globals;
 import com.rbbn.cpaas.mobile.utilities.exception.MobileError;
 import com.rbbn.cpaas.mobile.utilities.exception.MobileException;
 import com.rbbn.cpaas.mobile.utilities.webrtc.ICEServers;
@@ -57,9 +55,15 @@ public class SplashActivity extends AppCompatActivity {
         try {
             //Get Last Token
             Token token = kandyRoomDatabase.userDao().getLastToken();
-            printToken(token);
-            //Connect to Cpass
-            connectToCpaas(token.getAccess_token(), token.getId_token());
+            if(token == null){
+                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }else{
+                printToken(token);
+                //Connect to Cpass
+                connectToCpaas(token.getAccess_token(), token.getId_token());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,7 +97,7 @@ public class SplashActivity extends AppCompatActivity {
 
     /**
      * Print Token
-     * <p>
+     *
      * When checking the token
      *
      * @param token which will be printed.

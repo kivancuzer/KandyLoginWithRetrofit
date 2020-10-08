@@ -14,7 +14,7 @@ public interface UserDao {
 
     /**
      * Adding User
-     * <p>
+     *
      * OnConflictStrategy will be ignore conflict.
      * Same User won't be added into the database.
      *
@@ -32,7 +32,7 @@ public interface UserDao {
     /**
      * Delete a User
      *
-     * @param user which will be deleted form database.
+     * @param user which will be deleted from database.
      */
     @Delete
     void delete(User user);
@@ -55,7 +55,7 @@ public interface UserDao {
 
     /**
      * Add token
-     * <p>
+     *
      * OnConflictStrategy will be ignore conflict.
      * Same Token won't be added into the database.
      *

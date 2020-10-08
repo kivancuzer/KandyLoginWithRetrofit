@@ -18,12 +18,12 @@ import android.view.MenuItem;
 import com.example.kandyloginwithretrofit.ui.main.SectionsPagerAdapter;
 import com.rbbn.cpaas.mobile.CPaaS;
 import com.rbbn.cpaas.mobile.authentication.api.DisconnectionCallback;
-import com.rbbn.cpaas.mobile.utilities.Globals;
 import com.rbbn.cpaas.mobile.utilities.exception.MobileError;
 
 public class MainActivity extends AppCompatActivity {
 
     private CPaaS cpaas;
+    private KandyRoomDatabase kandyRoomDatabase;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-        Context context = getApplicationContext();
-        Globals.setApplicationContext(context);
-
+        kandyRoomDatabase = KandyRoomDatabase.getInstance(this);
 
     }
 
@@ -77,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
+                    kandyRoomDatabase.userDao().deleteAllTokens();
                 }
 
                 @Override

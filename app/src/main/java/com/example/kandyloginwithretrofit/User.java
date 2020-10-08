@@ -33,7 +33,7 @@ public class User {
 
     /**
      * Create User Without id
-     * <p>
+     *
      * When User created with this constructor id will be generated automatically.
      *
      * @param username   is which will be set for User.

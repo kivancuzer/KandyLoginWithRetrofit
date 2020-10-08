@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecyclerAdapter.ContactHolder> {
 
-    List<Contact> contactList;
+    private List<Contact> contactList;
 
     public ContactRecyclerAdapter(List<Contact> contactList) {
         this.contactList = contactList;
@@ -38,8 +38,8 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
     }
 
     public class ContactHolder extends RecyclerView.ViewHolder{
-        TextView txtName;
-        ImageView imgInfo;
+        private TextView txtName;
+        private ImageView imgInfo;
         public ContactHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txtName);

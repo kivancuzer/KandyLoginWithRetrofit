@@ -16,7 +16,7 @@ import java.util.List;
 
 public class MessageRecyclerAdapter extends RecyclerView.Adapter<MessageRecyclerAdapter.MessageHolder> {
 
-    List<Conversation> conversationList;
+    private List<Conversation> conversationList;
 
     public MessageRecyclerAdapter(List<Conversation> conversationList) {
         this.conversationList = conversationList;
@@ -36,6 +36,7 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<MessageRecycler
         String name[] = conversationList.get(position).getParticipant().split("@");
         holder.txtMessageName.setText(name[0]);
         holder.txtLastMessage.setText(conversationList.get(position).getLastText());
+        //Convert long to Date
         long time = conversationList.get(position).getLastMessageTime();
         holder.txtLastMessageTime.setText(DateFormat.format("MM/dd/yyyy", new Date(time)).toString());
     }

@@ -19,7 +19,7 @@ public abstract class KandyRoomDatabase extends RoomDatabase {
      * @param context The context for the database.
      * @return instance of the KandyRoomDatabase
      */
-    static KandyRoomDatabase getInstance(Context context) {
+    public static KandyRoomDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     KandyRoomDatabase.class, "kandyDb")
@@ -28,4 +28,7 @@ public abstract class KandyRoomDatabase extends RoomDatabase {
         }
         return instance;
     }
+
+
+
 }

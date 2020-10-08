@@ -6,20 +6,18 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.kandyloginwithretrofit.AddContactActivity;
 import com.example.kandyloginwithretrofit.CPaaSManager;
 import com.example.kandyloginwithretrofit.ContactRecyclerAdapter;
-import com.example.kandyloginwithretrofit.MainActivity;
 import com.example.kandyloginwithretrofit.R;
 import com.rbbn.cpaas.mobile.CPaaS;
 import com.rbbn.cpaas.mobile.addressbook.api.RetrieveContactsCallback;
@@ -35,7 +33,6 @@ public class ContactsFragment extends Fragment {
     List<Contact> contactList;
     CPaaS cpaas;
     TextView txtAddNewContact;
-    ImageView imgInfo;
 
     public static ContactsFragment newInstance() {
         return new ContactsFragment();

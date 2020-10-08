@@ -9,6 +9,7 @@ public class KandyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //Configuration
         Globals.setApplicationContext(this);
     }
 }

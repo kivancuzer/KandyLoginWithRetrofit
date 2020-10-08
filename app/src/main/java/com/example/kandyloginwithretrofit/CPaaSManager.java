@@ -1,7 +1,5 @@
 package com.example.kandyloginwithretrofit;
 
-import android.content.Context;
-
 import com.rbbn.cpaas.mobile.CPaaS;
 import com.rbbn.cpaas.mobile.utilities.services.ServiceInfo;
 import com.rbbn.cpaas.mobile.utilities.services.ServiceType;
@@ -14,9 +12,11 @@ public class CPaaSManager {
     private static CPaaS cpaas;
 
     /**
+     * Get CPaaS
+     *
      * Singleton - Lazy Initialization
      *
-     * @return instance of the CPaaS
+    * @return instance of the CPaaS
      */
     public static CPaaS getCpaas() {
         if (cpaas == null) {

@@ -2,7 +2,6 @@ package com.example.kandyloginwithretrofit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,11 +14,8 @@ import com.google.gson.GsonBuilder;
 import com.rbbn.cpaas.mobile.CPaaS;
 import com.rbbn.cpaas.mobile.authentication.api.ConnectionCallback;
 import com.rbbn.cpaas.mobile.authentication.api.DisconnectionCallback;
-import com.rbbn.cpaas.mobile.utilities.Configuration;
-import com.rbbn.cpaas.mobile.utilities.Globals;
 import com.rbbn.cpaas.mobile.utilities.exception.MobileError;
 import com.rbbn.cpaas.mobile.utilities.exception.MobileException;
-import com.rbbn.cpaas.mobile.utilities.webrtc.ICEServers;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -34,24 +30,13 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtUsername;
     private EditText txtPassword;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
-    public KandyRoomDatabase kandyRoomDatabase;
-    public CPaaS cpaas;
+    private KandyRoomDatabase kandyRoomDatabase;
+    private CPaaS cpaas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        //Configurations
-        Configuration configuration = Configuration.getInstance();
-        configuration.setUseSecureConnection(true);
-        configuration.setRestServerUrl("nvs-cpaas-oauth.kandy.io");
-
-        // Setting ICE Servers
-        ICEServers iceServers = new ICEServers();
-        iceServers.addICEServer("turns:turn-nds-1.genband.com:443?transport=tcp");
-        iceServers.addICEServer("turn:turn-nds-1.genband.com:3478?transport=udp");
-        configuration.setICEServers(iceServers);
 
         //CPaaS
         cpaas = CPaaSManager.getCpaas();
@@ -78,24 +63,25 @@ public class LoginActivity extends AppCompatActivity {
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
         btnLogin = findViewById(R.id.btnLogin);
         txtUsername = findViewById(R.id.editTextUsername);
-        txtPassword = findViewById(R.id.editTextUsername);
+        txtPassword = findViewById(R.id.editTextPassword);
 
     }
 
     /**
      * Get Token Method
+     * <p>
+     * Account Information =>
+     * username = "sahin1@cpaas.com";
+     * password = "Kandy-1234";
      */
     public void getToken() {
 
         String username = txtUsername.getText().toString();
         String password = txtPassword.getText().toString();
 
-        //Account Information =>
-        username = "sahin1@cpaas.com";
-        password = "Kandy-1234";
-
         String clientId = "7ae2e26f-178a-4cac-9dcf-4cecd1bbadc6";
-
+        System.out.println("username : " + username);
+        System.out.println("password : " + password);
         User user = new User(username, password, "password", clientId, "openid");
         Call<Token> call = jsonPlaceHolderApi.getToken(user.getUsername(), user.getPassword(), user.getClient_id(), "openid", "password");
         call.enqueue(new Callback<Token>() {
@@ -132,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
 
         try {
             cpaas.getAuthentication().setToken(accessToken);
-            cpaas.getAuthentication().connect(idToken, 600, new ConnectionCallback() {
+            cpaas.getAuthentication().connect(idToken, lifetime, new ConnectionCallback() {
                 public void onSuccess(String connectionToken) {
                     Log.i("CPaaS.Authentication", "Connected to websocket successfully");
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -172,37 +158,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Login With Last Token
-     * <p>
-     * When btnLoginWithLastToken clicked
-     *
-     * @param view
-     */
-    public void loginWithLastToken(View view) {
-        //Get last token in db
-        Token token = kandyRoomDatabase.userDao().getLastToken();
-        System.out.println(token.getAccess_token());
-        System.out.println(token.getId_token());
-
-        //Control token
-        if (token == null) {
-            System.out.println("Last token couldn't find");
-        } else {
-            //Connect To Cpass
-            connectToCpaas(kandyRoomDatabase.userDao().getLastToken().getAccess_token(),
-                    kandyRoomDatabase.userDao().getLastToken().getId_token());
-        }
-    }
-
     public void login(View view) {
         getToken();
     }
 
-    public void logout(View view) {
-        disconnectToCpass();
-    }
-
+    /**
+     * Print Token for control
+     *
+     * @param token which token will be printed.
+     */
     public void printToken(Token token) {
         System.out.println("ID: " + token.getId());
         System.out.println("Access Token: " + token.getAccess_token());
