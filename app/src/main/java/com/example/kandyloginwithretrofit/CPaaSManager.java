@@ -11,6 +11,7 @@ public class CPaaSManager {
 
     private static CPaaS cpaas;
 
+    private CPaaSManager(){}
     /**
      * Get CPaaS
      *

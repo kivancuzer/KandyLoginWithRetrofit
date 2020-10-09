@@ -13,7 +13,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rbbn.cpaas.mobile.CPaaS;
 import com.rbbn.cpaas.mobile.authentication.api.ConnectionCallback;
-import com.rbbn.cpaas.mobile.authentication.api.DisconnectionCallback;
 import com.rbbn.cpaas.mobile.utilities.exception.MobileError;
 import com.rbbn.cpaas.mobile.utilities.exception.MobileException;
 
@@ -32,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private JsonPlaceHolderApi jsonPlaceHolderApi;
     private KandyRoomDatabase kandyRoomDatabase;
     private CPaaS cpaas;
+    private static String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,14 +74,8 @@ public class LoginActivity extends AppCompatActivity {
      * username = "sahin1@cpaas.com";
      * password = "Kandy-1234";
      */
-    public void getToken() {
-
-        String username = txtUsername.getText().toString();
-        String password = txtPassword.getText().toString();
-
+    public void getToken(String username, String password) {
         String clientId = "7ae2e26f-178a-4cac-9dcf-4cecd1bbadc6";
-        System.out.println("username : " + username);
-        System.out.println("password : " + password);
         User user = new User(username, password, "password", clientId, "openid");
         Call<Token> call = jsonPlaceHolderApi.getToken(user.getUsername(), user.getPassword(), user.getClient_id(), "openid", "password");
         call.enqueue(new Callback<Token>() {
@@ -136,30 +130,16 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Disconnect to websocket
-     */
-    private void disconnectToCpass() {
-        try {
-            cpaas.getAuthentication().disconnect(new DisconnectionCallback() {
-                @Override
-                public void onSuccess() {
-                    Log.i("CPass.Disconnection", "Disconnected to websocket successfully");
-                }
-
-                @Override
-                public void onFail(MobileError mobileError) {
-                    Log.i("CPass.Disconnection", "Disconnection to websocket failed");
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public void login(View view) {
-        getToken();
+        if (txtUsername.getText().toString().isEmpty()) {
+            Log.i(TAG, "Username is Empty");
+        } else if (txtPassword.getText().toString().isEmpty()) {
+            Log.i(TAG, "Password is Empty");
+        } else {
+            String username = txtUsername.getText().toString();
+            String password = txtPassword.getText().toString();
+            getToken(username, password);
+        }
     }
 
     /**

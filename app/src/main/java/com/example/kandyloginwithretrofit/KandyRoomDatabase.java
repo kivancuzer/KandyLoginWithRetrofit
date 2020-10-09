@@ -14,7 +14,7 @@ public abstract class KandyRoomDatabase extends RoomDatabase {
     private static KandyRoomDatabase instance;
 
     /**
-     * Thread Safe Double Check Singleton Initialization
+     * Singleton - Lazy Initialization
      *
      * @param context The context for the database.
      * @return instance of the KandyRoomDatabase

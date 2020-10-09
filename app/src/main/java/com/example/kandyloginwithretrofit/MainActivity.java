@@ -35,9 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.settings) {
-
-        } else if (item.getItemId() == R.id.logout) {
+        if (item.getItemId() == R.id.logout) {
             disconnectToCpass();
         }
 

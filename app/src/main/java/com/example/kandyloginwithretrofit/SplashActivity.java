@@ -51,6 +51,7 @@ public class SplashActivity extends AppCompatActivity {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .build();
+        
         //Auto Login
         try {
             //Get Last Token
