@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,13 +23,14 @@ public class AddContactActivity extends AppCompatActivity {
     private TextView txtBusinessPhone;
     private TextView txtHomePhone;
     private TextView txtMobilePhone;
+    private static final String TAG="AddContactActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
 
-        cpaas = CPaaSManager.getCpaas();
+        cpaas = CPaaSManager.getInstance().getCpaas();
         txtPrimaryContact = findViewById(R.id.txtPrimaryContact);
         txtFirstName = findViewById(R.id.txtFirstName);
         txtLastName = findViewById(R.id.txtLastName);
@@ -48,29 +50,34 @@ public class AddContactActivity extends AppCompatActivity {
      * If success go to MainActivity
      */
     public void addNewContact() {
-        Contact contact = new Contact();
-        contact.setPrimaryContact(txtPrimaryContact.getText().toString());
-        contact.setFirstName(txtFirstName.getText().toString());
-        contact.setLastName(txtLastName.getText().toString());
-        contact.setEmailAddress(txtEmail.getText().toString());
-        contact.setBusinessPhoneNumber(txtBusinessPhone.getText().toString());
-        contact.setHomePhoneNumber(txtHomePhone.getText().toString());
-        contact.setMobilePhoneNumber(txtMobilePhone.getText().toString());
-        contact.setBuddy(true);
-        cpaas.getAddressBookService().addContact(contact, "default", new AddContactCallback() {
-            @Override
-            public void onSuccess(Contact contact) {
-                System.out.println("New Contact Added");
-                Intent intent = new Intent(AddContactActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        if(txtFirstName.getText().toString().isEmpty()){
+            Log.i(TAG,"First name is empty");
+        }else{
+            Contact contact = new Contact();
+            contact.setPrimaryContact(txtPrimaryContact.getText().toString());
+            contact.setFirstName(txtFirstName.getText().toString());
+            contact.setLastName(txtLastName.getText().toString());
+            contact.setEmailAddress(txtEmail.getText().toString());
+            contact.setBusinessPhoneNumber(txtBusinessPhone.getText().toString());
+            contact.setHomePhoneNumber(txtHomePhone.getText().toString());
+            contact.setMobilePhoneNumber(txtMobilePhone.getText().toString());
+            contact.setBuddy(true);
+            cpaas.getAddressBookService().addContact(contact, "default", new AddContactCallback() {
+                @Override
+                public void onSuccess(Contact contact) {
+                    Log.i(TAG,"New Contact Added");
+                    Intent intent = new Intent(AddContactActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
 
-            @Override
-            public void onFail(MobileError error) {
-                System.out.println("Error : " + error.toString());
-            }
-        });
+                @Override
+                public void onFail(MobileError error) {
+                    Log.i(TAG,"Error : " + error.toString());
+                }
+            });
+        }
+
     }
 
 }

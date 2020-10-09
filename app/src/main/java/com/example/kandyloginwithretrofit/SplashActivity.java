@@ -6,17 +6,12 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.rbbn.cpaas.mobile.CPaaS;
 import com.rbbn.cpaas.mobile.authentication.api.ConnectionCallback;
 import com.rbbn.cpaas.mobile.utilities.Configuration;
 import com.rbbn.cpaas.mobile.utilities.exception.MobileError;
 import com.rbbn.cpaas.mobile.utilities.exception.MobileException;
 import com.rbbn.cpaas.mobile.utilities.webrtc.ICEServers;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 public class SplashActivity extends AppCompatActivity {
     private KandyRoomDatabase kandyRoomDatabase;
@@ -38,29 +33,18 @@ public class SplashActivity extends AppCompatActivity {
         configuration.setICEServers(iceServers);
 
         //CPaaS
-        cpaas = CPaaSManager.getCpaas();
-
+        cpaas = CPaaSManager.getInstance().getCpaas();
         kandyRoomDatabase = KandyRoomDatabase.getInstance(this);
 
-        Gson gson = new GsonBuilder().serializeNulls().create();
-
-        //Log
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
-        
         //Auto Login
         try {
             //Get Last Token
             Token token = kandyRoomDatabase.userDao().getLastToken();
-            if(token == null){
-                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+            if (token == null) {
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
-            }else{
+            } else {
                 printToken(token);
                 //Connect to Cpass
                 connectToCpaas(token.getAccess_token(), token.getId_token());
@@ -76,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
 
         try {
             cpaas.getAuthentication().setToken(accessToken);
-            cpaas.getAuthentication().connect(idToken, 600, new ConnectionCallback() {
+            cpaas.getAuthentication().connect(idToken, lifetime, new ConnectionCallback() {
                 public void onSuccess(String connectionToken) {
                     Log.i("CPaaS.Authentication", "Connected to websocket successfully");
                     Intent intent = new Intent(SplashActivity.this, MainActivity.class);
@@ -98,7 +82,7 @@ public class SplashActivity extends AppCompatActivity {
 
     /**
      * Print Token
-     *
+     * <p>
      * When checking the token
      *
      * @param token which will be printed.

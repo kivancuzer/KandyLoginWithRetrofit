@@ -1,6 +1,5 @@
 package com.example.kandyloginwithretrofit;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cpaas = CPaaSManager.getCpaas();
+        cpaas = CPaaSManager.getInstance().getCpaas();
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
 

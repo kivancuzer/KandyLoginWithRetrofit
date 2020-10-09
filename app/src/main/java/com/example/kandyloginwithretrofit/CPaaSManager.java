@@ -9,17 +9,27 @@ import java.util.List;
 
 public class CPaaSManager {
 
-    private static CPaaS cpaas;
+    private static CPaaSManager instance;
+    private CPaaS cpaas;
 
-    private CPaaSManager(){}
+    private CPaaSManager() {
+    }
+
     /**
-     * Get CPaaS
+     * Get Instance
      *
-     * Singleton - Lazy Initialization
+     * Thread Safe Singleton
      *
-    * @return instance of the CPaaS
+     * @return instance of CPaaSManager
      */
-    public static CPaaS getCpaas() {
+    public synchronized static CPaaSManager getInstance() {
+        if (instance == null) {
+            instance = new CPaaSManager();
+        }
+        return instance;
+    }
+
+    public CPaaS getCpaas() {
         if (cpaas == null) {
             List<ServiceInfo> services = new ArrayList<>();
             services.add(new ServiceInfo(ServiceType.SMS, true));

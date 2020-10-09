@@ -9,20 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.rbbn.cpaas.mobile.CPaaS;
 import com.rbbn.cpaas.mobile.authentication.api.ConnectionCallback;
 import com.rbbn.cpaas.mobile.utilities.exception.MobileError;
 import com.rbbn.cpaas.mobile.utilities.exception.MobileException;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
@@ -38,29 +32,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //CPaaS
-        cpaas = CPaaSManager.getCpaas();
-
+        cpaas = CPaaSManager.getInstance().getCpaas();
         kandyRoomDatabase = KandyRoomDatabase.getInstance(this);
-
-        Gson gson = new GsonBuilder().serializeNulls().create();
-
-        //Log
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
-
-        //Retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://nvs-cpaas-oauth.kandy.io/cpaas/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(okHttpClient)
-                .build();
-
-        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+        jsonPlaceHolderApi = RetrofitProvider.getInstance().getRetrofit().create(JsonPlaceHolderApi.class);
         btnLogin = findViewById(R.id.btnLogin);
         txtUsername = findViewById(R.id.editTextUsername);
         txtPassword = findViewById(R.id.editTextPassword);
@@ -82,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.code() != 200 || response.body() == null) {
-                    System.out.println("Response: " + response.code());
+                    Log.i(TAG,"Response: " + response.code());
                     return;
                 }
                 Token token = response.body();
@@ -95,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Token> call, Throwable t) {
-                System.out.println(t.getMessage());
+                Log.i(TAG,t.getMessage());
             }
         });
 

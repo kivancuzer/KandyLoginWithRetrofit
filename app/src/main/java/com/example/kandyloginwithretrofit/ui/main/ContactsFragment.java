@@ -41,7 +41,7 @@ public class ContactsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cpaas = CPaaSManager.getCpaas();
+        cpaas = CPaaSManager.getInstance().getCpaas();
         getAddressBookService();
     }
 

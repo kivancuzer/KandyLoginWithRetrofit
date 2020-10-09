@@ -38,7 +38,7 @@ public class MessagesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cpaas = CPaaSManager.getCpaas();
+        cpaas = CPaaSManager.getInstance().getCpaas();
         chatService = cpaas.getChatService();
         getConversations();
     }
